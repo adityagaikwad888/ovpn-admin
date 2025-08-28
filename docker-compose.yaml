@@ -5,7 +5,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.18.0.0/16
+        - subnet: 172.20.0.0/16
 
 services:
   openvpn:
@@ -18,8 +18,8 @@ services:
       OVPN_SERVER_NET: "10.8.0.0"
       OVPN_SERVER_MASK: "255.255.255.0"
       OVPN_PASSWD_AUTH: "true"
-      OVPN_CUSTOM_ROUTES: "172.18.0.0 255.255.0.0"
-      DOCKER_NETWORK: "172.18.0.0/16"
+      OVPN_CUSTOM_ROUTES: "172.20.0.0 255.255.0.0"
+      DOCKER_NETWORK: "172.20.0.0/16"
     cap_add:
       - NET_ADMIN
     sysctls:
@@ -61,5 +61,5 @@ services:
     container_name: vpn-nginx
     networks:
       vpn-internal:
-        ipv4_address: 172.18.0.10
+        ipv4_address: 172.20.0.10
     restart: unless-stopped
