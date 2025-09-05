@@ -9,9 +9,18 @@ dev tun
 cipher AES-256-GCM
 key-direction 1
 
-#redirect-gateway def1
+# Split tunneling rules
+pull-filter ignore "redirect-gateway"   # Ignore server forcing all traffic through VPNs
+route-nopull
+{{- if .OvpnRoutes }}
+route {{ .OvpnRoutes }}            # Route only specified networks through tunnel
+{{- else }}
+route 10.8.0.0 255.255.255.0            # Route only VPN subnet through tunnel
+{{- end }}
+
 tls-client
 remote-cert-tls server
+#redirect-gateway def1
 
 # uncomment below lines for use with linux
 #script-security 2

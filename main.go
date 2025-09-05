@@ -212,6 +212,7 @@ type openvpnClientConfig struct {
 	Key        string
 	TLS        string
 	PasswdAuth bool
+	OvpnRoutes string
 }
 
 type OpenvpnClient struct {
@@ -720,6 +721,7 @@ func (oAdmin *OvpnAdmin) renderClientConfig(username string) string {
 		}
 
 		conf.PasswdAuth = *authByPassword
+		conf.OvpnRoutes = os.Getenv("OVPN_ROUTES") 
 
 		t := oAdmin.getClientConfigTemplate()
 
