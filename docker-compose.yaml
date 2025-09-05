@@ -18,11 +18,12 @@ services:
       OVPN_SERVER_NET: "10.8.0.0"
       OVPN_SERVER_MASK: "255.255.255.0"
       OVPN_PASSWD_AUTH: "true"
+      # These 
       OVPN_CUSTOM_ROUTES: "172.20.0.0 255.255.0.0"
+      OVPN_ROUTES: "172.20.0.0 255.255.0.0"
       DOCKER_NETWORK: "172.20.0.0/16"
       # Add split tunneling configuration
       OVPN_SPLIT_TUNNEL: "true"
-      OVPN_ROUTES: "172.20.0.0 255.255.0.0"
     cap_add:
       - NET_ADMIN
     sysctls:
