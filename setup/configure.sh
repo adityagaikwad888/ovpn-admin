@@ -43,6 +43,16 @@ fi
 
 cp -f /etc/openvpn/setup/openvpn.conf /etc/openvpn/openvpn.conf
 
+# Add MTU configuration if specified
+if [ ! -z "${OVPN_TUN_MTU}" ]; then
+  echo "tun-mtu ${OVPN_TUN_MTU}" >> /etc/openvpn/openvpn.conf
+fi
+
+# Add MSSFIX configuration if specified
+if [ ! -z "${OVPN_MSSFIX}" ]; then
+  echo "mssfix ${OVPN_MSSFIX}" >> /etc/openvpn/openvpn.conf
+fi
+
 # Add custom routes if specified
 if [ ! -z "${OVPN_CUSTOM_ROUTES}" ]; then
   echo 'push "route '${OVPN_CUSTOM_ROUTES}'"' >> /etc/openvpn/openvpn.conf

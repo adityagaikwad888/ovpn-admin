@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  ovpn-admin_vpn-internal:
+  vpn-internal:
     driver: bridge
     driver_opts:
       com.docker.network.driver.mtu: 1372
@@ -23,6 +23,9 @@ services:
       
       OVPN_CUSTOM_ROUTES: "172.20.0.0 255.255.0.0"
       DOCKER_NETWORK: "172.20.0.0/16"
+      # Add MTU configuration
+      OVPN_TUN_MTU: "1372"
+      OVPN_MSSFIX: "1332"
     cap_add:
       - NET_ADMIN
     sysctls:
@@ -53,7 +56,7 @@ services:
       OVPN_AUTH: "true"
       OVPN_AUTH_DB_PATH: "/mnt/easyrsa/pki/users.db"
       LOG_LEVEL: "debug"
-    network_mode: service:openvpnk
+    network_mode: service:openvpn
     volumes:
       - ./easyrsa_master:/mnt/easyrsa
       - ./ccd_master:/mnt/ccd
